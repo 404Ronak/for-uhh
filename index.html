@@ -286,6 +286,52 @@ section{position:relative;z-index:1;}
   color:var(--pink);
   font-size:clamp(1.3rem,3.5vw,2.2rem);
 }
+.cline.gold-text{
+  color:var(--gold);
+  font-size:clamp(1.1rem,2.8vw,1.6rem);
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .85s ease,transform .85s ease;
+}
+.cline.gold-text.visible{opacity:1;transform:translateY(0);}
+
+.serendipity-block{
+  margin:2rem auto 1rem;
+  max-width:680px;
+  background:rgba(167,139,250,.07);
+  border:1px solid rgba(167,139,250,.2);
+  border-radius:20px;
+  padding:2rem 2.2rem;
+  position:relative;
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .85s ease,transform .85s ease;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.serendipity-block::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(167,139,250,.5),transparent);
+}
+.serendipity-block.visible{opacity:1;transform:translateY(0);}
+.serendipity-block p{
+  font-family:var(--font-display);
+  font-size:clamp(1.05rem,2.4vw,1.35rem);
+  font-style:italic;
+  line-height:2;
+  color:var(--silver);
+}
+.serendipity-block p em{color:var(--purple-pale);}
+.serendipity-block p .pink-em{color:var(--pink);}
+.serendipity-label{
+  font-family:var(--font-script);
+  font-size:1.1rem;
+  color:var(--purple-light);
+  margin-bottom:.8rem;
+  display:block;
+}
 
 /* ── QUESTION ── */
 .question-section{
@@ -500,6 +546,7 @@ section{position:relative;z-index:1;}
   .cards-grid{grid-template-columns:1fr;}
   .btn-no{width:100%;}
   .memory-card{padding:2rem 1.4rem;}
+  .serendipity-block{padding:1.5rem 1.2rem;}
 }
 
 /* ── REVEAL INIT ── */
@@ -627,8 +674,25 @@ section{position:relative;z-index:1;}
     <div class="divider" style="opacity:0;transition:opacity .8s ease;" id="confDivider"></div>
     <p class="cline big">I realized something.</p>
     <p class="cline accent">You're not just my best friend.</p>
-    <p class="cline big">You're the person I want to choose,<br>every single day.</p>
-    <p class="cline pink" style="margin-top:1rem;">And I'm done waiting for you to go first. 😌</p>
+    <p class="cline big">You're the person I want to choose,<br>every single day, every single hour, every single second.</p>
+
+    <!-- ✦ NEW: serendipity block ✦ -->
+    <div class="serendipity-block" id="serendipityBlock">
+      <span class="serendipity-label">✦ &nbsp; how we even got here &nbsp; ✦</span>
+      <p>
+        Think about it — we started out <em>slagging your ex together.</em><br>
+        Just two people bonding over the most chaotic, unromantic thing possible.<br><br>
+        And somewhere in between all of that — the venting, the laughing, the late night chaos —
+        something shifted. Quietly. Without either of us planning it.<br><br>
+        <span class="pink-em">That journey? From that to this?</span><br>
+        It was serendipitous in the most ridiculous, most us way imaginable.<br><br>
+        I don't think we could have scripted it better if we tried.<br>
+        And honestly — <em>I don't think either of us will ever forget how it started.</em>
+      </p>
+    </div>
+
+    <p class="cline gold-text" id="goldLine">And I'm done waiting for you to go first. 😌</p>
+    <p class="cline pink" style="margin-top:.6rem;">Because some things are worth saying out loud, Vidhi.</p>
   </div>
 </section>
 
@@ -755,7 +819,19 @@ const confObs=new IntersectionObserver(entries=>{
     if(e.isIntersecting){
       const lines=e.target.querySelectorAll('.cline');
       lines.forEach((l,i)=>setTimeout(()=>{l.classList.add('visible');},i*320));
-      setTimeout(()=>{const d=document.getElementById('confDivider');if(d)d.style.opacity='1';},lines.length*320/2);
+      setTimeout(()=>{
+        const d=document.getElementById('confDivider');
+        if(d)d.style.opacity='1';
+      },lines.length*320/2);
+      // serendipity block + gold line
+      setTimeout(()=>{
+        const sb=document.getElementById('serendipityBlock');
+        if(sb)sb.classList.add('visible');
+      },lines.length*320+200);
+      setTimeout(()=>{
+        const gl=document.getElementById('goldLine');
+        if(gl)gl.classList.add('visible');
+      },lines.length*320+900);
       confObs.unobserve(e.target);
     }
   });
@@ -795,7 +871,6 @@ function sayYes(){
 
 function burst(){
   const cols=['#a78bfa','#818cf8','#c4b5fd','#fbbf24','#f9a8d4','#fff','#7c3aed','#6ee7b7','#fb7185','#fde68a','#bfdbfe'];
-  // big confetti wave
   for(let i=0;i<200;i++){
     setTimeout(()=>{
       const p=document.createElement('div');
@@ -807,7 +882,6 @@ function burst(){
       setTimeout(()=>p.remove(),6000);
     },i*18);
   }
-  // second wave
   setTimeout(()=>{
     for(let i=0;i<80;i++){
       setTimeout(()=>{
