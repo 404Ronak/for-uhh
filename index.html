@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Vidhi ✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#07091a;
+  --purple:#6d28d9;
+  --purple-light:#a78bfa;
+  --purple-pale:#c4b5fd;
+  --silver:#cbd5e1;
+  --silver-light:#e2e8f0;
+  --gold:#fbbf24;
+  --white:#ffffff;
+  --font-display:'Cormorant Garamond',serif;
+  --font-script:'Dancing Script',cursive;
+  --font-body:'Raleway',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--silver-light);
+  font-family:var(--font-body);
+  font-weight:300;
+  overflow-x:hidden;
+  cursor:default;
+}
+#starCanvas{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  z-index:0;
+  pointer-events:none;
+}
+section{position:relative;z-index:1;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:2rem;
+}
+.hero-label{
+  font-family:var(--font-script);
+  font-size:1.3rem;
+  color:var(--purple-light);
+  letter-spacing:.08em;
+  opacity:0;
+  animation:fadeUp 1s ease .5s forwards;
+}
+.hero-title{
+  font-family:var(--font-display);
+  font-size:clamp(4.5rem,13vw,10rem);
+  font-weight:300;
+  line-height:1;
+  margin:.6rem 0;
+  color:var(--white);
+  letter-spacing:-.02em;
+  opacity:0;
+  animation:fadeUp 1.2s ease 1s forwards;
+}
+.hero-title .name{
+  font-style:italic;
+  background:linear-gradient(135deg,#c4b5fd 0%,#818cf8 50%,#f9a8d4 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero-tagline{
+  font-family:var(--font-display);
+  font-size:clamp(1rem,2.5vw,1.45rem);
+  font-style:italic;
+  color:var(--silver);
+  line-height:1.9;
+  max-width:600px;
+  margin:1.5rem auto;
+  opacity:0;
+  animation:fadeUp 1s ease 1.7s forwards;
+}
+.scroll-hint{
+  margin-top:3rem;
+  font-size:.8rem;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  color:var(--purple-light);
+  opacity:0;
+  animation:fadeUp 1s ease 2.4s forwards,nudge 2.5s ease 3.2s infinite;
+}
+
+/* ── TEASE ── */
+.tease-section{
+  min-height:90vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:5rem 2rem;
+  text-align:center;
+}
+.tease-inner{max-width:680px;}
+.whisper{
+  font-family:var(--font-script);
+  font-size:1.6rem;
+  color:var(--purple-light);
+  margin-bottom:.4rem;
+}
+.oops{
+  font-size:.95rem;
+  color:var(--silver);
+  font-style:italic;
+  margin-bottom:2.5rem;
+  opacity:.7;
+}
+.tease-heading{
+  font-family:var(--font-display);
+  font-size:clamp(2.8rem,8vw,5.5rem);
+  font-weight:300;
+  color:var(--white);
+  margin-bottom:1.5rem;
+}
+.divider{
+  width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--purple-light),transparent);
+  margin:1.5rem auto;
+}
+.tease-body{
+  font-family:var(--font-display);
+  font-size:clamp(1.1rem,2.5vw,1.4rem);
+  font-style:italic;
+  line-height:2;
+  color:var(--silver);
+}
+.tease-body em{color:var(--purple-pale);}
+
+/* ── REASONS ── */
+.reasons-section{padding:6rem 2rem;text-align:center;}
+.section-label{
+  font-family:var(--font-script);
+  font-size:1.3rem;
+  color:var(--purple-light);
+  margin-bottom:.8rem;
+}
+.section-title{
+  font-family:var(--font-display);
+  font-size:clamp(2.2rem,6vw,4.5rem);
+  font-weight:300;
+  color:var(--white);
+  margin-bottom:3rem;
+  letter-spacing:-.02em;
+}
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:1.4rem;
+  max-width:1000px;
+  margin:0 auto;
+}
+.card{
+  background:rgba(109,40,217,.07);
+  border:1px solid rgba(167,139,250,.18);
+  border-radius:18px;
+  padding:2rem 1.8rem;
+  text-align:left;
+  position:relative;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity .7s ease,transform .7s ease,border-color .3s,background .3s,box-shadow .3s;
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.card.visible{opacity:1;transform:translateY(0);}
+.card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(167,139,250,.55),transparent);
+}
+.card:hover{
+  border-color:rgba(167,139,250,.45);
+  background:rgba(109,40,217,.14);
+  transform:translateY(-5px) !important;
+  box-shadow:0 24px 48px rgba(109,40,217,.22);
+}
+.card-number{
+  font-family:var(--font-display);
+  font-size:3rem;
+  font-weight:300;
+  color:rgba(167,139,250,.28);
+  line-height:1;
+  margin-bottom:.5rem;
+}
+.card-text{
+  font-family:var(--font-display);
+  font-size:1.15rem;
+  font-style:italic;
+  line-height:1.75;
+  color:var(--silver-light);
+}
+
+/* ── CONFESSION ── */
+.confession-section{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:6rem 2rem;
+  text-align:center;
+}
+.confession-inner{max-width:800px;}
+.cline{
+  font-family:var(--font-display);
+  font-size:clamp(1.15rem,3vw,1.7rem);
+  font-style:italic;
+  color:var(--silver);
+  line-height:2.2;
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .85s ease,transform .85s ease;
+}
+.cline.visible{opacity:1;transform:translateY(0);}
+.cline.big{
+  font-size:clamp(2.2rem,5.5vw,4rem);
+  font-weight:300;
+  color:var(--white);
+  line-height:1.4;
+  margin:1.8rem 0;
+}
+.cline.accent{
+  color:var(--purple-pale);
+  font-size:clamp(1.5rem,4.5vw,2.8rem);
+}
+
+/* ── QUESTION ── */
+.question-section{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  padding:4rem 2rem;
+  text-align:center;
+}
+.q-intro{
+  font-family:var(--font-display);
+  font-size:clamp(1.2rem,3vw,1.8rem);
+  font-style:italic;
+  color:var(--silver);
+  margin-bottom:1.2rem;
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+.q-intro.visible{opacity:1;transform:translateY(0);}
+.the-question{
+  font-family:var(--font-script);
+  font-size:clamp(3.2rem,11vw,8rem);
+  color:var(--white);
+  margin-bottom:3.5rem;
+  text-shadow:0 0 80px rgba(167,139,250,.5);
+  opacity:0;
+  transform:translateY(25px);
+  transition:opacity 1s ease .25s,transform 1s ease .25s;
+}
+.the-question.visible{opacity:1;transform:translateY(0);}
+.buttons-row{
+  display:flex;
+  gap:1.8rem;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  min-height:80px;
+  flex-wrap:wrap;
+}
+.btn-yes{
+  padding:1.1rem 3.2rem;
+  font-family:var(--font-display);
+  font-size:1.45rem;
+  font-style:italic;
+  font-weight:600;
+  color:var(--white);
+  background:linear-gradient(135deg,#5b21b6,#7c3aed,#8b5cf6);
+  border:none;
+  border-radius:50px;
+  cursor:pointer;
+  box-shadow:0 0 35px rgba(109,40,217,.5);
+  transition:transform .3s ease,box-shadow .3s ease;
+  letter-spacing:.04em;
+  position:relative;
+  overflow:hidden;
+  z-index:10;
+}
+.btn-yes::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.18),transparent 60%);
+  border-radius:50px;
+}
+.btn-yes:hover{
+  transform:scale(1.07);
+  box-shadow:0 0 60px rgba(109,40,217,.8);
+}
+.btn-no{
+  padding:.9rem 2rem;
+  font-family:var(--font-body);
+  font-size:1rem;
+  font-weight:400;
+  color:var(--silver);
+  background:transparent;
+  border:1px solid rgba(167,139,250,.28);
+  border-radius:50px;
+  cursor:pointer;
+  transition:border-color .2s;
+  white-space:nowrap;
+  z-index:10;
+}
+.btn-no:hover{border-color:rgba(167,139,250,.55);}
+
+/* ── RESULT ── */
+.result-msg{
+  display:none;
+  margin-top:2.5rem;
+  animation:fadeUp .8s ease forwards;
+}
+.result-msg.show{display:block;}
+.result-big{
+  font-family:var(--font-script);
+  font-size:clamp(2.2rem,7vw,5rem);
+  color:var(--purple-pale);
+  margin-bottom:1.2rem;
+}
+.result-sub{
+  font-family:var(--font-display);
+  font-size:clamp(1.1rem,2.5vw,1.4rem);
+  font-style:italic;
+  color:var(--silver);
+  line-height:1.9;
+  max-width:520px;
+  margin:0 auto;
+}
+.result-sub em{color:var(--purple-light);}
+
+/* ── FOOTER ── */
+.footer{
+  padding:3rem 2rem;
+  text-align:center;
+  font-family:var(--font-script);
+  font-size:1.1rem;
+  color:rgba(167,139,250,.5);
+  position:relative;
+  z-index:1;
+}
+
+/* ── CONFETTI ── */
+.cp{
+  position:fixed;
+  top:-12px;
+  border-radius:3px;
+  animation:fall linear forwards;
+  z-index:999;
+  pointer-events:none;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(800deg);opacity:0;}
+}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(28px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes nudge{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(9px);}
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .cards-grid{grid-template-columns:1fr;}
+  .btn-no{width:100%;}
+}
+
+/* ── REVEAL INIT ── */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity .8s ease,transform .8s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<canvas id="starCanvas"></canvas>
+
+<!-- ════ HERO ════ -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-label">just for you...</p>
+    <h1 class="hero-title">For <span class="name">Vidhi</span></h1>
+    <p class="hero-tagline">Because some people walk into your life and quietly rearrange everything — and you don't even notice until it's far, far too late to pretend otherwise.</p>
+    <div class="scroll-hint">✦ &nbsp; scroll down &nbsp; ✦</div>
+  </div>
+</section>
+
+<!-- ════ TEASE ════ -->
+<section class="tease-section">
+  <div class="tease-inner">
+    <p class="whisper reveal">psst... hey Dolly 👀</p>
+    <p class="oops reveal">( okay okay — I know. I know. 😅 )</p>
+    <h2 class="tease-heading reveal">Hi, Vidhi.</h2>
+    <div class="divider"></div>
+    <p class="tease-body reveal">
+      I know you already made that face when you saw "Dolly" up there.<br>
+      That little frown — eyebrows slightly furrowed, that tiny corner-of-mouth thing you do.<br><br>
+      Honestly? It is one of my favorite things about you.<br>
+      <em>Don't tell anyone I said that. I have a reputation to maintain.</em>
+    </p>
+  </div>
+</section>
+
+<!-- ════ REASONS ════ -->
+<section class="reasons-section">
+  <p class="section-label reveal">a few reasons (out of approximately a million)</p>
+  <h2 class="section-title reveal">Why it's you.</h2>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-number">01</div>
+      <p class="card-text">You make ordinary moments feel like scenes from a movie I never want to end — and somehow manage to be the best part of every single one.</p>
+    </div>
+    <div class="card">
+      <div class="card-number">02</div>
+      <p class="card-text">The way you laugh — fully, unguardedly, without holding back — is the kind of sound I would genuinely travel ridiculous distances just to hear.</p>
+    </div>
+    <div class="card">
+      <div class="card-number">03</div>
+      <p class="card-text">Your stubbornness is honestly adorable. Even when it's directed at me. Especially when it's directed at me. I'll never admit this to your face.</p>
+    </div>
+    <div class="card">
+      <div class="card-number">04</div>
+      <p class="card-text">You've somehow managed to be my comfort place and my favorite chaos simultaneously. I don't know how you do it. It should be impossible.</p>
+    </div>
+    <div class="card">
+      <div class="card-number">05</div>
+      <p class="card-text">Being around you just... feels like home. The kind you didn't know you were missing until you suddenly found yourself standing in it.</p>
+    </div>
+    <div class="card">
+      <div class="card-number">06</div>
+      <p class="card-text">And let's be completely honest — you clearly have impeccable taste. You kept me around this long, didn't you? 😏</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CONFESSION ════ -->
+<section class="confession-section">
+  <div class="confession-inner" id="confessionInner">
+    <p class="cline">Somewhere between all our conversations,</p>
+    <p class="cline">all our silences that never felt awkward,</p>
+    <p class="cline">all our ridiculously specific inside jokes,</p>
+    <p class="cline">all the moments that felt ordinary but somehow weren't —</p>
+    <div class="divider" style="opacity:0;transition:opacity .8s ease;" id="confDivider"></div>
+    <p class="cline big">I realized something.</p>
+    <p class="cline accent">You're not just my best friend.</p>
+    <p class="cline big">You're the person I want to choose,<br>every single day.</p>
+  </div>
+</section>
+
+<!-- ════ QUESTION ════ -->
+<section class="question-section">
+  <p class="q-intro">So... Vidhi.</p>
+  <div class="the-question">Will you be mine?</div>
+  <div class="buttons-row" id="buttonsRow">
+    <button class="btn-yes" onclick="sayYes()">Yes, always 💜</button>
+    <button class="btn-no" id="noBtn" onmouseenter="runAway(this)" onclick="noClick(this)">No</button>
+  </div>
+  <div class="result-msg" id="yesResult">
+    <div class="result-big">I knew it. 💜</div>
+    <p class="result-sub">
+      You've always been mine, honestly.<br>
+      You just needed a little convincing.<br><br>
+      <em>Now stop smiling and pretending you're not smiling. I can feel it from here.</em>
+    </p>
+  </div>
+  <div class="result-msg" id="noResult">
+    <p class="result-sub">
+      <em>That button appears to be broken. So sorry. 😇<br>
+      This website only comes with one working option.<br>
+      (It was always going to be Yes. You know that.)</em>
+    </p>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer class="footer">
+  made with a lot of feelings &nbsp;✦&nbsp; and one very specific person in mind
+</footer>
+
+<script>
+// ══ STARS ══
+const cv=document.getElementById('starCanvas'),cx=cv.getContext('2d');
+let stars=[],shoots=[];
+function resize(){cv.width=innerWidth;cv.height=innerHeight;}
+function mkStars(){
+  stars=[];
+  for(let i=0;i<220;i++)stars.push({
+    x:Math.random()*cv.width,
+    y:Math.random()*cv.height,
+    r:Math.random()*1.4+.2,
+    a:Math.random(),
+    spd:Math.random()*.018+.004,
+    dir:Math.random()>.5?1:-1,
+    col:Math.random()>.8?'#a78bfa':Math.random()>.9?'#f9a8d4':'#fff'
+  });
+}
+function draw(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  stars.forEach(s=>{
+    s.a+=s.spd*s.dir;
+    if(s.a>=1||s.a<=.08)s.dir*=-1;
+    cx.beginPath();
+    cx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    cx.fillStyle=s.col;
+    cx.globalAlpha=s.a;
+    cx.fill();
+  });
+  cx.globalAlpha=1;
+  shoots=shoots.filter(s=>s.life>0);
+  shoots.forEach(s=>{
+    const ex=s.x-s.len*Math.cos(s.ang),ey=s.y-s.len*Math.sin(s.ang);
+    const g=cx.createLinearGradient(s.x,s.y,ex,ey);
+    g.addColorStop(0,`rgba(255,255,255,${s.life/100})`);
+    g.addColorStop(1,'rgba(255,255,255,0)');
+    cx.beginPath();cx.moveTo(s.x,s.y);cx.lineTo(ex,ey);
+    cx.strokeStyle=g;cx.lineWidth=1.5;cx.stroke();
+    s.x+=Math.cos(s.ang)*9;s.y+=Math.sin(s.ang)*9;s.life-=2.5;
+  });
+  requestAnimationFrame(draw);
+}
+window.addEventListener('resize',()=>{resize();mkStars();});
+resize();mkStars();draw();
+setInterval(()=>{
+  shoots.push({x:Math.random()*cv.width*.7,y:Math.random()*cv.height*.4,ang:Math.PI/4+(Math.random()-.5)*.35,len:70+Math.random()*70,life:100});
+},3500);
+
+// ══ SCROLL REVEAL (generic) ══
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}
+  });
+},{threshold:.18});
+document.querySelectorAll('.reveal,.q-intro,.the-question').forEach((el,i)=>{
+  el.style.transitionDelay=i%4*.1+'s';
+  ro.observe(el);
+});
+
+// ══ CARD REVEAL ══
+const cr=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.card').forEach((c,i)=>{
+        setTimeout(()=>c.classList.add('visible'),i*130);
+      });
+      cr.unobserve(e.target);
+    }
+  });
+},{threshold:.08});
+const grid=document.querySelector('.cards-grid');
+if(grid)cr.observe(grid);
+
+// ══ CONFESSION REVEAL ══
+const confObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const lines=e.target.querySelectorAll('.cline');
+      lines.forEach((l,i)=>setTimeout(()=>{l.classList.add('visible');},i*320));
+      setTimeout(()=>{const d=document.getElementById('confDivider');if(d)d.style.opacity='1';},lines.length*320/2);
+      confObs.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+const ci=document.getElementById('confessionInner');
+if(ci)confObs.observe(ci);
+
+// ══ NO BUTTON ESCAPE ══
+let noHits=0;
+function runAway(btn){
+  if(window.innerWidth<640)return;
+  noHits++;
+  if(noHits>6){btn.style.display='none';return;}
+  const maxX=window.innerWidth-120,maxY=window.innerHeight-80;
+  btn.style.position='fixed';
+  btn.style.left=Math.max(10,Math.random()*maxX)+'px';
+  btn.style.top=Math.max(10,Math.random()*maxY)+'px';
+  btn.style.transform='rotate('+(Math.random()*30-15)+'deg)';
+  btn.style.transition='left .15s ease,top .15s ease';
+}
+function noClick(btn){
+  btn.style.display='none';
+  document.getElementById('noResult').classList.add('show');
+}
+
+// ══ YES + CONFETTI ══
+function sayYes(){
+  document.getElementById('buttonsRow').style.opacity='0';
+  document.getElementById('buttonsRow').style.pointerEvents='none';
+  setTimeout(()=>{
+    document.getElementById('buttonsRow').style.display='none';
+    document.getElementById('yesResult').classList.add('show');
+  },400);
+  burst();
+}
+function burst(){
+  const cols=['#a78bfa','#818cf8','#c4b5fd','#fbbf24','#f9a8d4','#fff','#7c3aed','#6ee7b7','#fb7185'];
+  for(let i=0;i<140;i++){
+    setTimeout(()=>{
+      const p=document.createElement('div');
+      p.className='cp';
+      const w=Math.random()*9+5,h=Math.random()*9+5;
+      p.style.cssText=`left:${Math.random()*100}vw;width:${w}px;height:${h}px;background:${cols[Math.floor(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'50%':'3px'};animation-duration:${Math.random()*2.5+2}s;opacity:1;`;
+      document.body.appendChild(p);
+      setTimeout(()=>p.remove(),5000);
+    },i*25);
+  }
+}
+</script>
+</body>
+</html>
