@@ -15,6 +15,7 @@
   --silver:#cbd5e1;
   --silver-light:#e2e8f0;
   --gold:#fbbf24;
+  --pink:#f9a8d4;
   --white:#ffffff;
   --font-display:'Cormorant Garamond',serif;
   --font-script:'Dancing Script',cursive;
@@ -204,6 +205,51 @@ section{position:relative;z-index:1;}
   color:var(--silver-light);
 }
 
+/* ── MEMORY SECTION ── */
+.memory-section{
+  min-height:70vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:5rem 2rem;
+  text-align:center;
+}
+.memory-inner{max-width:700px;}
+.memory-card{
+  background:rgba(249,168,212,.05);
+  border:1px solid rgba(249,168,212,.22);
+  border-radius:24px;
+  padding:3rem 2.5rem;
+  position:relative;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.memory-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(249,168,212,.5),transparent);
+}
+.memory-icon{
+  font-size:2.5rem;
+  margin-bottom:1.2rem;
+  display:block;
+}
+.memory-title{
+  font-family:var(--font-script);
+  font-size:1.8rem;
+  color:var(--pink);
+  margin-bottom:1.2rem;
+}
+.memory-text{
+  font-family:var(--font-display);
+  font-size:clamp(1.05rem,2.5vw,1.35rem);
+  font-style:italic;
+  line-height:2;
+  color:var(--silver);
+}
+.memory-text em{color:var(--pink);}
+
 /* ── CONFESSION ── */
 .confession-section{
   min-height:100vh;
@@ -235,6 +281,10 @@ section{position:relative;z-index:1;}
 .cline.accent{
   color:var(--purple-pale);
   font-size:clamp(1.5rem,4.5vw,2.8rem);
+}
+.cline.pink{
+  color:var(--pink);
+  font-size:clamp(1.3rem,3.5vw,2.2rem);
 }
 
 /* ── QUESTION ── */
@@ -328,6 +378,7 @@ section{position:relative;z-index:1;}
   display:none;
   margin-top:2.5rem;
   animation:fadeUp .8s ease forwards;
+  max-width:600px;
 }
 .result-msg.show{display:block;}
 .result-big{
@@ -346,6 +397,56 @@ section{position:relative;z-index:1;}
   margin:0 auto;
 }
 .result-sub em{color:var(--purple-light);}
+.result-sub .pink{color:var(--pink);}
+
+/* love note card */
+.love-note{
+  margin-top:2.5rem;
+  background:rgba(109,40,217,.1);
+  border:1px solid rgba(167,139,250,.3);
+  border-radius:20px;
+  padding:2rem 1.8rem;
+  text-align:left;
+  position:relative;
+}
+.love-note::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(167,139,250,.6),transparent);
+}
+.love-note-title{
+  font-family:var(--font-script);
+  font-size:1.4rem;
+  color:var(--purple-pale);
+  margin-bottom:1rem;
+}
+.love-note-body{
+  font-family:var(--font-display);
+  font-size:1.1rem;
+  font-style:italic;
+  line-height:1.9;
+  color:var(--silver-light);
+}
+.love-note-sig{
+  margin-top:1.2rem;
+  font-family:var(--font-script);
+  font-size:1.3rem;
+  color:var(--pink);
+  text-align:right;
+}
+.fielding-line{
+  margin-top:2rem;
+  font-family:var(--font-script);
+  font-size:clamp(1.5rem,4vw,2.4rem);
+  color:var(--gold);
+  text-shadow:0 0 30px rgba(251,191,36,.4);
+  animation:glow 2s ease-in-out infinite alternate;
+}
+@keyframes glow{
+  from{text-shadow:0 0 20px rgba(251,191,36,.4);}
+  to{text-shadow:0 0 40px rgba(251,191,36,.8),0 0 70px rgba(251,191,36,.3);}
+}
 
 /* ── FOOTER ── */
 .footer{
@@ -371,6 +472,19 @@ section{position:relative;z-index:1;}
   to{transform:translateY(110vh) rotate(800deg);opacity:0;}
 }
 
+/* ── HEART BURST ── */
+.heart-float{
+  position:fixed;
+  font-size:1.4rem;
+  pointer-events:none;
+  z-index:998;
+  animation:heartRise linear forwards;
+}
+@keyframes heartRise{
+  0%{opacity:1;transform:translateY(0) scale(1);}
+  100%{opacity:0;transform:translateY(-60vh) scale(1.6) rotate(20deg);}
+}
+
 /* ── KEYFRAMES ── */
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(28px);}
@@ -385,6 +499,7 @@ section{position:relative;z-index:1;}
 @media(max-width:600px){
   .cards-grid{grid-template-columns:1fr;}
   .btn-no{width:100%;}
+  .memory-card{padding:2rem 1.4rem;}
 }
 
 /* ── REVEAL INIT ── */
@@ -403,7 +518,7 @@ section{position:relative;z-index:1;}
 <!-- ════ HERO ════ -->
 <section class="hero">
   <div class="hero-content">
-    <p class="hero-label">just for you...</p>
+    <p class="hero-label">just for you, Dolly...</p>
     <h1 class="hero-title">For <span class="name">Vidhi</span></h1>
     <p class="hero-tagline">Because some people walk into your life and quietly rearrange everything — and you don't even notice until it's far, far too late to pretend otherwise.</p>
     <div class="scroll-hint">✦ &nbsp; scroll down &nbsp; ✦</div>
@@ -458,6 +573,50 @@ section{position:relative;z-index:1;}
   </div>
 </section>
 
+<!-- ════ MEMORY ════ -->
+<section class="memory-section">
+  <div class="memory-inner">
+    <p class="section-label reveal" style="margin-bottom:1.5rem;">a very specific, very real memory</p>
+    <div class="memory-card reveal">
+      <span class="memory-icon">🌙</span>
+      <p class="memory-title">The Night I Couldn't Sleep</p>
+      <p class="memory-text">
+        You know how we never had late night calls?<br><br>
+        Well — there was this one night when I found out something.<br>
+        Something that made my whole chest feel like it had butterflies doing backflips inside it.<br><br>
+        <em>The crush... wasn't one sided.</em><br><br>
+        I lay there staring at the ceiling at 2am, heart going absolutely feral, wanting SO badly to just text you.<br>
+        To talk. To say something. To say <em>everything.</em><br><br>
+        But nope. You — in your iconic fashion — were already fast asleep. 😭<br><br>
+        So I just lay there. Wide awake. Butterflies. Ceiling. Chaos.<br>
+        <em>All because of you, Dolly. All because of you.</em>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ STANDOFF ════ -->
+<section class="tease-section" style="min-height:70vh;">
+  <div class="tease-inner">
+    <p class="whisper reveal">the great standoff of 2024...</p>
+    <div class="divider"></div>
+    <p class="tease-body reveal">
+      We both knew.<br>
+      We both <em>knew</em> we knew.<br><br>
+      And yet — there we were. Two absolute cowards,<br>
+      silently daring the other to go first. 🫠<br><br>
+      <em>"You say it."</em><br>
+      <em>"No, YOU say it."</em><br>
+      <em>"I'm not saying it first."</em><br>
+      <em>"Neither am I."</em><br><br>
+      Well.<br>
+      I got tired of waiting.<br><br>
+      <em>So here we are. I made a whole website about it.</em><br>
+      Consider this my white flag. 🏳️
+    </p>
+  </div>
+</section>
+
 <!-- ════ CONFESSION ════ -->
 <section class="confession-section">
   <div class="confession-inner" id="confessionInner">
@@ -469,12 +628,13 @@ section{position:relative;z-index:1;}
     <p class="cline big">I realized something.</p>
     <p class="cline accent">You're not just my best friend.</p>
     <p class="cline big">You're the person I want to choose,<br>every single day.</p>
+    <p class="cline pink" style="margin-top:1rem;">And I'm done waiting for you to go first. 😌</p>
   </div>
 </section>
 
 <!-- ════ QUESTION ════ -->
 <section class="question-section">
-  <p class="q-intro">So... Vidhi.</p>
+  <p class="q-intro">So... Vidhi. From Ronak.</p>
   <div class="the-question">Will you be mine?</div>
   <div class="buttons-row" id="buttonsRow">
     <button class="btn-yes" onclick="sayYes()">Yes, always 💜</button>
@@ -487,6 +647,21 @@ section{position:relative;z-index:1;}
       You just needed a little convincing.<br><br>
       <em>Now stop smiling and pretending you're not smiling. I can feel it from here.</em>
     </p>
+    <div class="love-note">
+      <p class="love-note-title">💌 &nbsp; A note, just for you</p>
+      <p class="love-note-body">
+        Vidhi — I'm not good at grand speeches. You know that.<br><br>
+        But I am good at knowing when something matters.<br>
+        And you? You matter more than I have ever let on.<br><br>
+        I want to be the person who makes you smile for no reason.<br>
+        Who bothers you just enough. Who shows up, every single time.<br><br>
+        Thank you for being you. For being stubborn and warm and chaotic and wonderful.<br>
+        Thank you for being my person.<br><br>
+        I'm not letting you go back to sleep without knowing that. 🌙
+      </p>
+      <p class="love-note-sig">— Ronak ✦</p>
+    </div>
+    <p class="fielding-line">yeyy filding set ho gayi 👾👾</p>
   </div>
   <div class="result-msg" id="noResult">
     <p class="result-sub">
@@ -499,7 +674,7 @@ section{position:relative;z-index:1;}
 
 <!-- ════ FOOTER ════ -->
 <footer class="footer">
-  made with a lot of feelings &nbsp;✦&nbsp; and one very specific person in mind
+  made with a lot of feelings &nbsp;✦&nbsp; and one very specific, very sleepy person in mind &nbsp;✦&nbsp; — Ronak
 </footer>
 
 <script>
@@ -549,7 +724,7 @@ setInterval(()=>{
   shoots.push({x:Math.random()*cv.width*.7,y:Math.random()*cv.height*.4,ang:Math.PI/4+(Math.random()-.5)*.35,len:70+Math.random()*70,life:100});
 },3500);
 
-// ══ SCROLL REVEAL (generic) ══
+// ══ SCROLL REVEAL ══
 const ro=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}
@@ -606,7 +781,7 @@ function noClick(btn){
   document.getElementById('noResult').classList.add('show');
 }
 
-// ══ YES + CONFETTI ══
+// ══ YES + CONFETTI + HEARTS ══
 function sayYes(){
   document.getElementById('buttonsRow').style.opacity='0';
   document.getElementById('buttonsRow').style.pointerEvents='none';
@@ -615,18 +790,49 @@ function sayYes(){
     document.getElementById('yesResult').classList.add('show');
   },400);
   burst();
+  floatHearts();
 }
+
 function burst(){
-  const cols=['#a78bfa','#818cf8','#c4b5fd','#fbbf24','#f9a8d4','#fff','#7c3aed','#6ee7b7','#fb7185'];
-  for(let i=0;i<140;i++){
+  const cols=['#a78bfa','#818cf8','#c4b5fd','#fbbf24','#f9a8d4','#fff','#7c3aed','#6ee7b7','#fb7185','#fde68a','#bfdbfe'];
+  // big confetti wave
+  for(let i=0;i<200;i++){
     setTimeout(()=>{
       const p=document.createElement('div');
       p.className='cp';
-      const w=Math.random()*9+5,h=Math.random()*9+5;
-      p.style.cssText=`left:${Math.random()*100}vw;width:${w}px;height:${h}px;background:${cols[Math.floor(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'50%':'3px'};animation-duration:${Math.random()*2.5+2}s;opacity:1;`;
+      const w=Math.random()*11+4,h=Math.random()*11+4;
+      const shapes=['50%','3px','0px'];
+      p.style.cssText=`left:${Math.random()*100}vw;width:${w}px;height:${h}px;background:${cols[Math.floor(Math.random()*cols.length)]};border-radius:${shapes[Math.floor(Math.random()*shapes.length)]};animation-duration:${Math.random()*3+2}s;opacity:1;`;
       document.body.appendChild(p);
-      setTimeout(()=>p.remove(),5000);
-    },i*25);
+      setTimeout(()=>p.remove(),6000);
+    },i*18);
+  }
+  // second wave
+  setTimeout(()=>{
+    for(let i=0;i<80;i++){
+      setTimeout(()=>{
+        const p=document.createElement('div');
+        p.className='cp';
+        const w=Math.random()*8+3,h=Math.random()*8+3;
+        p.style.cssText=`left:${Math.random()*100}vw;width:${w}px;height:${h}px;background:${cols[Math.floor(Math.random()*cols.length)]};border-radius:50%;animation-duration:${Math.random()*2.5+2}s;opacity:1;`;
+        document.body.appendChild(p);
+        setTimeout(()=>p.remove(),5000);
+      },i*30);
+    }
+  },1200);
+}
+
+function floatHearts(){
+  const emojis=['💜','💜','💖','✨','💜','🌟','💜','💕'];
+  for(let i=0;i<24;i++){
+    setTimeout(()=>{
+      const h=document.createElement('div');
+      h.className='heart-float';
+      h.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+      h.style.cssText=`left:${Math.random()*95}vw;bottom:${Math.random()*30+5}vh;font-size:${Math.random()*1.4+1}rem;animation-duration:${Math.random()*2+2.5}s;`;
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),5000);
+    },i*120);
   }
 }
 </script>
