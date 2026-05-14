@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Vidhi ✨</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Dancing+Script:wght@400;600;700&family=Raleway:wght@300;400;500;600&family=Noto+Nastaliq+Urdu&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -20,6 +20,7 @@
   --font-display:'Cormorant Garamond',serif;
   --font-script:'Dancing Script',cursive;
   --font-body:'Raleway',sans-serif;
+  --font-urdu:'Noto Nastaliq Urdu',serif;
 }
 html{scroll-behavior:smooth;}
 body{
@@ -333,6 +334,129 @@ section{position:relative;z-index:1;}
   display:block;
 }
 
+/* ══════════════════════════════
+   SHAYARI SCRATCH CARD SECTION
+══════════════════════════════ */
+.shayari-section{
+  padding:6rem 2rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.dil-ki-baat-label{
+  font-family:var(--font-script);
+  font-size:clamp(1.8rem,5vw,2.8rem);
+  color:var(--pink);
+  margin-bottom:.4rem;
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .8s ease,transform .8s ease;
+  text-shadow:0 0 30px rgba(249,168,212,.4);
+}
+.dil-ki-baat-label.visible{opacity:1;transform:translateY(0);}
+.dil-ki-baat-sub{
+  font-family:var(--font-display);
+  font-style:italic;
+  font-size:1rem;
+  color:rgba(167,139,250,.7);
+  margin-bottom:2.2rem;
+  letter-spacing:.06em;
+  opacity:0;
+  transition:opacity .8s ease .2s;
+}
+.dil-ki-baat-sub.visible{opacity:1;}
+
+/* scratch card wrapper */
+.scratch-wrapper{
+  position:relative;
+  width:min(480px,90vw);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 0 60px rgba(109,40,217,.35), 0 0 120px rgba(249,168,212,.12);
+  opacity:0;
+  transform:translateY(30px) scale(.96);
+  transition:opacity .9s ease .3s,transform .9s ease .3s;
+}
+.scratch-wrapper.visible{opacity:1;transform:translateY(0) scale(1);}
+
+/* shayari revealed underneath */
+.shayari-reveal{
+  background:linear-gradient(145deg,#0d0a2e 0%,#110d35 50%,#0a0820 100%);
+  border:1px solid rgba(167,139,250,.25);
+  border-radius:24px;
+  padding:2.8rem 2.4rem 2.4rem;
+  position:relative;
+  overflow:hidden;
+}
+.shayari-reveal::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(249,168,212,.6),transparent);
+}
+.shayari-reveal::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(109,40,217,.18) 0%,transparent 70%);
+  pointer-events:none;
+}
+.shayari-deco-top{
+  font-size:1.6rem;
+  margin-bottom:1rem;
+  display:block;
+  opacity:.7;
+}
+.shayari-text{
+  font-family:'Noto Nastaliq Urdu',serif;
+  font-size:clamp(1.15rem,3.5vw,1.45rem);
+  line-height:2.4;
+  color:var(--silver-light);
+  direction:ltr;
+  text-align:center;
+}
+.shayari-line{
+  display:block;
+  margin:0.18rem 0;
+  transition:color .3s;
+}
+.shayari-line .hl{color:var(--purple-pale);}
+.shayari-line .hl-pink{color:var(--pink);}
+.shayari-line .hl-gold{color:var(--gold);}
+.shayari-divider{
+  width:40px;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(249,168,212,.6),transparent);
+  margin:1.2rem auto;
+}
+.shayari-deco-bot{
+  font-size:1.3rem;
+  margin-top:1rem;
+  display:block;
+  opacity:.65;
+}
+
+/* canvas sits on top */
+#scratchCanvas{
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  border-radius:24px;
+  cursor:crosshair;
+  touch-action:none;
+}
+.scratch-hint{
+  margin-top:1.2rem;
+  font-size:.8rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:rgba(167,139,250,.55);
+  animation:nudge 2s ease-in-out infinite;
+  transition:opacity .5s;
+}
+.scratch-hint.hidden{opacity:0;pointer-events:none;}
+
 /* ── QUESTION ── */
 .question-section{
   min-height:100vh;
@@ -445,7 +569,6 @@ section{position:relative;z-index:1;}
 .result-sub em{color:var(--purple-light);}
 .result-sub .pink{color:var(--pink);}
 
-/* love note card */
 .love-note{
   margin-top:2.5rem;
   background:rgba(109,40,217,.1);
@@ -547,6 +670,8 @@ section{position:relative;z-index:1;}
   .btn-no{width:100%;}
   .memory-card{padding:2rem 1.4rem;}
   .serendipity-block{padding:1.5rem 1.2rem;}
+  .shayari-reveal{padding:2rem 1.4rem;}
+  .shayari-text{font-size:1.05rem;}
 }
 
 /* ── REVEAL INIT ── */
@@ -664,6 +789,38 @@ section{position:relative;z-index:1;}
   </div>
 </section>
 
+<!-- ════ SHAYARI SCRATCH CARD ════ -->
+<section class="shayari-section">
+  <p class="dil-ki-baat-label" id="dilLabel">Dil Ki Baat</p>
+  <p class="dil-ki-baat-sub" id="dilSub">✦ &nbsp; scratch to reveal &nbsp; ✦</p>
+
+  <div class="scratch-wrapper" id="scratchWrapper">
+    <!-- SHAYARI underneath -->
+    <div class="shayari-reveal">
+      <span class="shayari-deco-top">🌙 ✨ ❤️</span>
+      <div class="shayari-text">
+        <span class="shayari-line">kaise dekhu kisi aur ko</span>
+        <span class="shayari-line">ke meri <span class="hl">aakho main sirf tum ho</span> ✨</span>
+        <div class="shayari-divider"></div>
+        <span class="shayari-line">nazare laakh haseen sahi magar</span>
+        <span class="shayari-line">meri nazar main sirf <span class="hl-pink">khubsurat tum ho</span> ❤️</span>
+        <div class="shayari-divider"></div>
+        <span class="shayari-line"><span class="hl-gold">chand 🌙 taare ⭐ phool 🌹 khushbooein 🌸</span></span>
+        <span class="shayari-line">shayari — ye sab bhi achha hai</span>
+        <div class="shayari-divider"></div>
+        <span class="shayari-line">magar main kya karu in sab ka</span>
+        <span class="shayari-line">ke mere liye kafi <span class="hl-pink">sirf tum ho</span> 🫶</span>
+      </div>
+      <span class="shayari-deco-bot">— Ronak 💜</span>
+    </div>
+
+    <!-- Scratch canvas on top -->
+    <canvas id="scratchCanvas"></canvas>
+  </div>
+
+  <p class="scratch-hint" id="scratchHint">✦ &nbsp; scratch the card &nbsp; ✦</p>
+</section>
+
 <!-- ════ CONFESSION ════ -->
 <section class="confession-section">
   <div class="confession-inner" id="confessionInner">
@@ -676,7 +833,6 @@ section{position:relative;z-index:1;}
     <p class="cline accent">You're not just my best friend.</p>
     <p class="cline big">You're the person I want to choose,<br>every single day, every single hour, every single second.</p>
 
-    <!-- ✦ NEW: serendipity block ✦ -->
     <div class="serendipity-block" id="serendipityBlock">
       <span class="serendipity-label">✦ &nbsp; how we even got here &nbsp; ✦</span>
       <p>
@@ -799,6 +955,20 @@ document.querySelectorAll('.reveal,.q-intro,.the-question').forEach((el,i)=>{
   ro.observe(el);
 });
 
+// ── Shayari section labels reveal ──
+const shayariObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.getElementById('dilLabel').classList.add('visible');
+      document.getElementById('dilSub').classList.add('visible');
+      document.getElementById('scratchWrapper').classList.add('visible');
+      shayariObs.unobserve(e.target);
+    }
+  });
+},{threshold:.2});
+const sw=document.getElementById('scratchWrapper');
+if(sw)shayariObs.observe(sw);
+
 // ══ CARD REVEAL ══
 const cr=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
@@ -823,7 +993,6 @@ const confObs=new IntersectionObserver(entries=>{
         const d=document.getElementById('confDivider');
         if(d)d.style.opacity='1';
       },lines.length*320/2);
-      // serendipity block + gold line
       setTimeout(()=>{
         const sb=document.getElementById('serendipityBlock');
         if(sb)sb.classList.add('visible');
@@ -838,6 +1007,108 @@ const confObs=new IntersectionObserver(entries=>{
 },{threshold:.15});
 const ci=document.getElementById('confessionInner');
 if(ci)confObs.observe(ci);
+
+// ══════════════════════════
+//   SCRATCH CARD LOGIC
+// ══════════════════════════
+(function(){
+  const wrapper=document.getElementById('scratchWrapper');
+  const canvas=document.getElementById('scratchCanvas');
+  const hint=document.getElementById('scratchHint');
+  const ctx=canvas.getContext('2d');
+  let painting=false;
+  let totalPixels=0;
+  let revealed=false;
+
+  function initCanvas(){
+    const w=wrapper.offsetWidth;
+    const h=wrapper.offsetHeight;
+    canvas.width=w;
+    canvas.height=h;
+
+    // Draw the cover — a rich gradient matching the theme
+    const grad=ctx.createLinearGradient(0,0,w,h);
+    grad.addColorStop(0,'#1e1254');
+    grad.addColorStop(0.4,'#2d1b69');
+    grad.addColorStop(0.7,'#3b1fa8');
+    grad.addColorStop(1,'#1a0f3d');
+    ctx.fillStyle=grad;
+    ctx.fillRect(0,0,w,h);
+
+    // Decorative shimmer pattern
+    ctx.save();
+    ctx.globalAlpha=0.08;
+    for(let i=0;i<8;i++){
+      ctx.beginPath();
+      ctx.arc(Math.random()*w,Math.random()*h,Math.random()*80+20,0,Math.PI*2);
+      ctx.fillStyle='#a78bfa';
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // Cover text prompt
+    ctx.save();
+    ctx.globalAlpha=1;
+    ctx.fillStyle='rgba(167,139,250,0.55)';
+    ctx.font=`300 ${Math.min(w*0.045,16)}px 'Raleway',sans-serif`;
+    ctx.textAlign='center';
+    ctx.letterSpacing='0.15em';
+    ctx.fillText('✦  SCRATCH TO REVEAL  ✦', w/2, h/2 - 14);
+    ctx.fillStyle='rgba(249,168,212,0.4)';
+    ctx.font=`300 ${Math.min(w*0.035,13)}px 'Raleway',sans-serif`;
+    ctx.fillText('dil ki baat chhupi hai yahan...', w/2, h/2 + 14);
+    ctx.restore();
+
+    totalPixels = w * h;
+    ctx.globalCompositeOperation='destination-out';
+  }
+
+  function getPos(e){
+    const r=canvas.getBoundingClientRect();
+    const src=e.touches?e.touches[0]:e;
+    return{x:src.clientX-r.left,y:src.clientY-r.top};
+  }
+
+  function scratch(x,y){
+    ctx.beginPath();
+    ctx.arc(x,y,28,0,Math.PI*2);
+    ctx.fill();
+    checkReveal();
+  }
+
+  function checkReveal(){
+    if(revealed)return;
+    // sample every 32px to save perf
+    const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+    let cleared=0;
+    for(let i=3;i<data.length;i+=32*4){
+      if(data[i]<128)cleared++;
+    }
+    const pct=cleared/(totalPixels/(32*32))*100;
+    if(pct>45){
+      revealed=true;
+      hint.classList.add('hidden');
+      // fade out canvas
+      canvas.style.transition='opacity 1s ease';
+      canvas.style.opacity='0';
+      setTimeout(()=>canvas.style.display='none',1000);
+      // little heart burst on reveal
+      floatHearts();
+    }
+  }
+
+  canvas.addEventListener('mousedown',e=>{painting=true;scratch(...Object.values(getPos(e)));});
+  canvas.addEventListener('mousemove',e=>{if(painting)scratch(...Object.values(getPos(e)));});
+  canvas.addEventListener('mouseup',()=>painting=false);
+  canvas.addEventListener('mouseleave',()=>painting=false);
+  canvas.addEventListener('touchstart',e=>{e.preventDefault();painting=true;scratch(...Object.values(getPos(e)));},{passive:false});
+  canvas.addEventListener('touchmove',e=>{e.preventDefault();if(painting)scratch(...Object.values(getPos(e)));},{passive:false});
+  canvas.addEventListener('touchend',()=>painting=false);
+
+  // init after fonts/layout settle
+  setTimeout(initCanvas,400);
+  window.addEventListener('resize',()=>setTimeout(initCanvas,100));
+})();
 
 // ══ NO BUTTON ESCAPE ══
 let noHits=0;
